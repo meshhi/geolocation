@@ -3,6 +3,7 @@
   height: 80%;
   background-color: rgb(162, 162, 255);
   border-radius: 2rem;
+  overflow: hidden;
 }
 
 .timeline {
@@ -10,7 +11,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
 }
 
 .msg-container-common {
@@ -19,14 +19,44 @@
   overflow: hidden;
 }
 
+.msg-time-indicator {
+  flex: 1 1 20%;
+}
+
 .msg-container {
+  flex: 1 1 80%;
   overflow: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column-reverse;
+  margin: 2rem 0;
 }
 
 .input-msg-container {
+  display: flex;
   flex: 1;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
 }
 
 .input-msg {
-  
+  flex-basis: 80%;
+  height: 90%;
+}
+
+.input-msg-send-btn {
+  border-radius: 50%;
+  border: 0;  
+  padding: 1rem .5rem;
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: all .1s ease-in-out;
+}
+
+.input-msg-send-btn:hover {
+  background-color: rgb(236, 236, 236);
 }

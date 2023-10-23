@@ -42,9 +42,38 @@ class Timeline {
       this.inputMsgContainer.appendChild(this.inputMsgSendBtn);
     }
 
+    initGeolocationRequest = () => {
+      console.log('initided geoloc request');
+    }
+
+    getGeolocAsync = () => new Promise((res, rej) => {
+      navigator.geolocation.getCurrentPosition(data => {
+        res(data);
+      },
+      err => {
+        rej(err);
+      })
+    });
+
+    getGeolocation = async () => {
+      if (navigator.geolocation) {
+        try {
+          this.geolocation = await this.getGeolocAsync();
+        } catch(e) {
+          // console.log(e);
+        }
+      } else {
+        initGeolocationRequest();
+      }
+    }
+
     // HANDLERS
-    sendMsgHandler = () => {
+    sendMsgHandler = async () => {
+      await this.getGeolocation();
+      console.log(this.geolocation);
+
       const msg = new TextMessage(this.inputMsg.value);
+
       msg.bindToDOM(this.messagesContainer);
     }
 
