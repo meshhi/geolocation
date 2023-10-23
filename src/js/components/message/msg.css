@@ -1,0 +1,7 @@
+.msg {
+    width: 80%;
+    min-height: 200px;
+    height: auto;
+    border-radius: 5px;
+    background-color: #fff;
+}

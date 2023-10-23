@@ -1,11 +1,9 @@
-// TODO: write code here
+import Timeline from "./components/Timeline";
 
-// comment this to pass build
-const unusedVariable = "variable";
-
-// for demonstration purpose only
-export default function demo(value) {
-  return `Demo: ${value}`;
+const start = () => {
+  const rootContainer = document.querySelector('.container');
+  const timeline = new Timeline();
+  timeline.bindToDOM(rootContainer);
 }
 
-console.log("app.js included");
+start();

@@ -1,0 +1,32 @@
+.container {
+  width: 80%;
+  height: 80%;
+  background-color: rgb(162, 162, 255);
+  border-radius: 2rem;
+}
+
+.timeline {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.msg-container-common {
+  flex: 9;
+  display: flex;
+  overflow: hidden;
+}
+
+.msg-container {
+  overflow: scroll;
+}
+
+.input-msg-container {
+  flex: 1;
+}
+
+.input-msg {
+  
+}
