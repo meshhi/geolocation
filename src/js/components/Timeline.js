@@ -62,7 +62,8 @@ class Timeline {
     this.timerElement.classList.add('timer');
   }
 
-  initGeolocationRequest = () => {
+  // GEOLOCATIONS
+  initGeolocationRequest = async () => {
     console.log('initided geoloc request');
   }
 
@@ -87,6 +88,7 @@ class Timeline {
     }
   }
 
+  // APPROVE MEDIA HANLDERS
   applyAudioRecord = async () => {
     this.recorder.stop();
     this.mediaStream.getTracks().forEach(track => {
@@ -104,6 +106,7 @@ class Timeline {
     this.updateUIButtonsForCommon();
   }
 
+  // INIT RECORD
   recordAudio = async () => {
     if (navigator.mediaDevices) {
       try {
@@ -112,6 +115,7 @@ class Timeline {
           audio: true
         });
         this.msg = undefined;
+        this.startTimer();
         this.recorder = new MediaRecorder(this.mediaStream);
         const chunks = [];
         
@@ -124,6 +128,7 @@ class Timeline {
         })
         
         this.recorder.addEventListener('stop', async () => {
+          this.stopTimer();
           if (this.isMsgRecordInterrupt) return;
           this.applyRecordAudioBtn.style.pointerEvents = 'none';
           this.recordAudioBtn.style.pointerEvents = 'none';
@@ -132,7 +137,7 @@ class Timeline {
           this.msg = new AudioMessage(this.inputMsg.value, url);
           await this.getGeolocation();
           if (!this.geolocation) {
-            initGeolocationRequest();
+            await initGeolocationRequest();
           };
           const { latitude, longitude } = this.geolocation.coords;
           this.msg.addGeolocation(latitude, longitude);
@@ -157,6 +162,7 @@ class Timeline {
     }
   }
 
+  // UI UPDATE
   updateUIButtonsForRecording = () => {
     this.recordAudioBtn.remove();
     this.inputMsgContainer.appendChild(this.applyRecordAudioBtn);
@@ -166,15 +172,30 @@ class Timeline {
 
   updateUIButtonsForCommon = () => {
     this.applyRecordAudioBtn.remove();
+    this.timerElement.remove();
     this.stopRecordAudioBtn.remove();
     this.inputMsgContainer.appendChild(this.recordAudioBtn);
   }
 
-  // HANDLERS
+  // RECORD TIMER LOGIC
+
+  startTimer = () => {
+    this.i = 0;
+    this.timerId = setInterval(() => {
+      this.i++;
+      this.timerElement.innerHTML = `${this.i}`;
+    }, 1000);
+  }
+
+  stopTimer = () => {
+    this.timerElement.innerHTML = 0;
+    clearInterval(this.timerId);
+  }
+  // BASIC INIT SCENARIO HANDLERS
   sendMsgHandler = async () => {
     await this.getGeolocation();
     if (!this.geolocation) {
-      initGeolocationRequest();
+      await initGeolocationRequest();
     };
     const { latitude, longitude } = this.geolocation.coords;
     const msg = new TextMessage(this.inputMsg.value);
