@@ -17,6 +17,7 @@
   flex: 9;
   display: flex;
   overflow: hidden;
+  padding-top: 1rem;
 }
 
 .msg-time-indicator {
@@ -78,4 +79,14 @@
 
 .record-audio-btn {
 
+}
+
+.apply-record-audio-btn {
+
+}
+
+.timer {
+  width: 4rem;
+  height: 100%;
+  background-color: red;
 }

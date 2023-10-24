@@ -6,6 +6,7 @@
 
 body {
     color: #999;
+    position: relative;
 }
 
 .main-container {
