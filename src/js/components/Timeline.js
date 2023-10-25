@@ -1,5 +1,6 @@
 import TextMessage from "./message/TextMessage";
 import AudioMessage from "./message/AudioMessage";
+import Modal from "./Modal";
 
 import './timeline.css';
 class Timeline {
@@ -8,6 +9,7 @@ class Timeline {
     this.timeline.classList.add('timeline');
     this.createMessagesContainer(this.timeline);
     this.createInputMsgContainer(this.timeline);
+    this.modal = new Modal();
     this.addEventListeners();
   }
 
@@ -64,7 +66,12 @@ class Timeline {
 
   // GEOLOCATIONS
   initGeolocationRequest = async () => {
+    this.modal.show();
     console.log('initided geoloc request');
+    this.geolocation = {}
+    this.geolocation.coords = {
+
+    }
   }
 
   getGeolocAsync = () => new Promise((res, rej) => {
@@ -137,7 +144,7 @@ class Timeline {
           this.msg = new AudioMessage(this.inputMsg.value, url);
           await this.getGeolocation();
           if (!this.geolocation) {
-            await initGeolocationRequest();
+            await this.initGeolocationRequest();
           };
           const { latitude, longitude } = this.geolocation.coords;
           this.msg.addGeolocation(latitude, longitude);
@@ -165,6 +172,7 @@ class Timeline {
   // UI UPDATE
   updateUIButtonsForRecording = () => {
     this.recordAudioBtn.remove();
+    this.inputMsgSendBtn.remove();
     this.inputMsgContainer.appendChild(this.applyRecordAudioBtn);
     this.inputMsgContainer.appendChild(this.timerElement);
     this.inputMsgContainer.appendChild(this.stopRecordAudioBtn);
@@ -174,6 +182,7 @@ class Timeline {
     this.applyRecordAudioBtn.remove();
     this.timerElement.remove();
     this.stopRecordAudioBtn.remove();
+    this.inputMsgContainer.appendChild(this.inputMsgSendBtn);
     this.inputMsgContainer.appendChild(this.recordAudioBtn);
   }
 
@@ -195,7 +204,7 @@ class Timeline {
   sendMsgHandler = async () => {
     await this.getGeolocation();
     if (!this.geolocation) {
-      await initGeolocationRequest();
+      await this.initGeolocationRequest();
     };
     const { latitude, longitude } = this.geolocation.coords;
     const msg = new TextMessage(this.inputMsg.value);

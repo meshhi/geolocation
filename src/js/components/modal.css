@@ -1,3 +1,18 @@
 .modal {
   position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(223, 223, 223, 0.685);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-inner {
+  width: 50%;
+  height: 50%;
+  border-radius: 1rem;
+  background-color: #fff;
 }
