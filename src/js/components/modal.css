@@ -16,3 +16,29 @@
   border-radius: 1rem;
   background-color: #fff;
 }
+
+.input-coordinates-form {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.input-longitude {
+
+}
+
+.input-latitude {
+
+}
+
+.submit-coordinates {
+  background-color: blanchedalmond;
+  border-radius: 5px;
+  border: 0;
+  padding: .5rem;
+}
